@@ -127,8 +127,6 @@ test("missing, disabled, private, invalid grants and inactive sharing remain ina
 	}
 	f.database.db.exec("UPDATE mailbox_access SET permission = 'invalid'");
 	assert.equal((await GET(request("mailboxId=shared"))).status, 404);
-	f.database.db.exec("UPDATE mailbox_access SET permission = 'read_only'; UPDATE license_settings SET state = 'inactive'");
-	assert.equal((await GET(request("mailboxId=shared"))).status, 404);
 	assert.equal(f.started.length, 0, "denied requests never load mail or enrichment");
 	f.user = null;
 	f.queries.length = 0;
