@@ -38,10 +38,10 @@ export const calendarToolDescriptions: Record<CalendarToolName, string> = {
 	search_events: "Search event title, description, and location in an ISO 8601 time range, up to 90 days.",
 	get_event: "Get an event or recurring occurrence by ID. Returns its series ID for edits.",
 	create_event: "Create an event in the user's personal calendar. This saves immediately; attendees are recorded but invitations are not sent.",
-	update_events: "Propose changes to up to 20 owned event series by series ID. Nothing changes until the user approves it at the returned reviewUrl in Mailflare; changes apply to whole series and no invitations are sent.",
-	delete_events: "Propose deleting up to 20 owned event series by series ID. Nothing is deleted until the user approves it at the returned reviewUrl in Mailflare; no cancellations are sent.",
+	update_events: "Propose changes to up to 20 owned event series by series ID. Nothing changes until the user approves it at the returned reviewUrl in EasyMail; changes apply to whole series and no invitations are sent.",
+	delete_events: "Propose deleting up to 20 owned event series by series ID. Nothing is deleted until the user approves it at the returned reviewUrl in EasyMail; no cancellations are sent.",
 	find_free_time: "Find available slots using the user's events in an ISO 8601 time range, up to 90 days. Returns UTC instants.",
-	get_calendars: "List the calendars available here. Mailflare currently has one personal calendar per user.",
+	get_calendars: "List the calendars available here. EasyMail currently has one personal calendar per user.",
 };
 
 export const CALENDAR_TOOL_NAMES = Object.keys(calendarToolSchemas) as CalendarToolName[];
@@ -68,7 +68,7 @@ export async function runCalendarTool(context: CalendarToolContext, name: Calend
 		const count = ((input.updates ?? input.eventIds) as unknown[]).length;
 		return {
 			status: "confirmation_required",
-			message: `${count} event series would be ${name === "delete_events" ? "deleted" : "changed"}. Nothing happened yet: ask the user to review and approve it in Mailflare.`,
+			message: `${count} event series would be ${name === "delete_events" ? "deleted" : "changed"}. Nothing happened yet: ask the user to review and approve it in EasyMail.`,
 			reviewUrl: `/agent/calendar-review?token=${encodeURIComponent(token)}`,
 			expiresInMinutes: 15,
 		};

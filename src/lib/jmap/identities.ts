@@ -80,7 +80,7 @@ export const emailSubmissionSet: JmapMethodHandler = async (ctx, args) => {
 		// AI drafts must pass the human review step that /api/send enforces.
 		const [agentDraft] = await ctx.db.select({ draftId: agentDraftMetadata.draftId }).from(agentDraftMetadata).where(eq(agentDraftMetadata.draftId, draft.id)).limit(1);
 		if (agentDraft) {
-			notCreated[creationId] = { type: "forbidden", description: "Review and confirm this AI draft in Mailflare before sending" };
+			notCreated[creationId] = { type: "forbidden", description: "Review and confirm this AI draft in EasyMail before sending" };
 			continue;
 		}
 		try {
